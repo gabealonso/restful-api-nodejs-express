@@ -18,49 +18,75 @@ export const getUsers = (req, res) => {
     res.send(users);
 };
 
-export const createUser = (req, res) => {
-    const user = req.body;
-    // we use an spread operator to add the id property
-    const userWithId = { ...user, id: uuidv4() };
-    users.push(userWithId);
-    res.send(`User ${user.firstName} ${user.lastName} added successfully`);
+export const createUser = async (req, res) => {
+    try {
+        if(Object.keys(req.body).toString() === "firstName,lastName,age,email") {
+            const user = req.body;
+            // we use an spread operator to add the id property
+            const userWithId = { ...user, id: uuidv4() };
+            users.push(userWithId);
+            res.send(`User ${user.firstName} ${user.lastName} added successfully`);
+        } else {
+            throw '403';
+        }
+    } catch (err) {
+        res.sendStatus(403);
+    }
 };
 
-export const getUserById = (req, res) => {
-    const { id } = req.params;
-    const foundUser = users.find((user) => user.id === id);
-    res.send(foundUser);
+export const getUserById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const foundUser = users.find((user) => user.id === id);
+        if(foundUser != undefined){
+            res.send(foundUser);
+        } else {
+            throw '404';
+        }
+    } catch (err) {
+        res.sendStatus(404);
+    }
 };
 
-export const deleteUser = (req, res) => {
-    const { id } = req.params;
-    // the filter function deletes those who returned false
-    users = users.filter((user) => user.id !== id);
-    res.send(`User with the id: ${id} deleted`);
+export const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const foundUser = users.find((user) => user.id === id);
+        if(foundUser != undefined){
+            // the filter function deletes those who returned false
+            users = users.filter((user) => user.id !== id);
+            res.send(`User with the id: ${id} deleted`);
+        } else {
+            throw '404';
+        }
+    } catch (err) {
+        res.sendStatus(404);
+    }
 };
 
-export const updateUser = (req, res) => {
-    const { id } = req.params;
-    const { firstName, lastName, age, email } = req.body;
-    const user = users.find((user) => user.id === id);
-
-    if(firstName)
-    {
-        user.firstName = firstName;
+export const updateUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { firstName, lastName, age, email } = req.body;
+        const user = users.find((user) => user.id === id);
+        if(user != undefined){
+            if(firstName){
+                user.firstName = firstName;
+            }
+            if(lastName){
+                user.lastName = lastName;
+            }
+            if(age){
+                user.age = age;
+            }
+            if(email){
+                user.email = email;
+            }
+            res.send(`User with the id: ${id} updated`);
+        } else {
+            throw '404';
+        }
+    } catch (err) {
+        res.sendStatus(404);
     }
-    if(lastName)
-    {
-        user.lastName = lastName;
-    }
-    if(age)
-    {
-        user.age = age;
-    }
-    if(email)
-    {
-        user.email = email;
-    }
-
-    res.send(`User with the id: ${id} updated`);
 };
-
