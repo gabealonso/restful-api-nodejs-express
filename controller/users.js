@@ -1,7 +1,22 @@
 import { v4 as uuidv4 } from 'uuid';
 
 // this is our "database"
-let users = [];
+let users = [
+    {
+        firstName: "Jennie",
+        lastName: "Kim",
+        age: 24,
+        email: "jenniekim@gmail.com",
+        id: "0a57b828-9764-4cf4-b50f-504df469a1cd"
+    },
+    {
+        firstName: "Yeji",
+        lastName: "Hwuang",
+        age: 19,
+        email: "yejihwang@gmail.com",
+        id: "9764-0a57b828-4cf4-b50f-504df469a1cd"
+    }
+];
 
 // database model should be like this
 /* 
