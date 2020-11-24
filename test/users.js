@@ -14,7 +14,7 @@ const users_model = {
 }
 
 // tests
-describe('get server status', () => {
+describe('users', () => {
     it('status', (done) => {
         chai.request('localhost:5000')
             .get('/users')
