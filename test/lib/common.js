@@ -14,7 +14,7 @@ export const get_and_status = (host, route, expectedStatus) => {
     .end((error, response) => {
         expect(response).to.have.status(expectedStatus)
     });
-}
+};
 
 
 /**
@@ -25,14 +25,14 @@ export const get_and_status = (host, route, expectedStatus) => {
  * @param {String} bodyParam 
  */
 
-export const validate_user_updated = (host, route, expectedResult, bodyParam) =>{
+export const validate_user_updated = (host, route, expectedResult, bodyParam) => {
     chai.request(host)
     .get(route)
     .end((error, response) => {
         const obtainedResult = response.body[bodyParam];
         expect(obtainedResult).to.equal(expectedResult);
     });
-}
+};
 
 
 /**
@@ -87,4 +87,17 @@ export const post_and_status = (host, route, body, expectedStatus) => {
     .end((error, response) => {
         expect(response).to.have.status(expectedStatus);
     });
-}
+};
+
+
+/**
+ * 
+ * @param {Object} expectedModel 
+ * @param {Object} obtainedModel 
+ */
+
+export const validate_model = (expectedModel, obtainedModel) => {
+    Object.keys(expectedModel).forEach(expectedKey => {
+        expect(obtainedModel).to.have.property(expectedKey)
+    });
+};
