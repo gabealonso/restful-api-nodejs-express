@@ -16,6 +16,7 @@ export const get_and_status = (host, route, expectedStatus) => {
     });
 }
 
+
 /**
  * 
  * @param {String} host 
@@ -32,6 +33,7 @@ export const validate_user_updated = (host, route, expectedResult, bodyParam) =>
         expect(obtainedResult).to.equal(expectedResult);
     });
 }
+
 
 /**
  * 
@@ -52,6 +54,7 @@ export const update_user = (host, route, sendObject, expectedResult, bodyParam) 
     });
 };
 
+
 /**
  * 
  * @param {String} host 
@@ -68,3 +71,20 @@ export const delete_user = (host, route, expectedStatus) => {
     });
 };
 
+
+/**
+ * 
+ * @param {String} host 
+ * @param {String} route 
+ * @param {Object} body 
+ * @param {Number} expectedStatus 
+ */
+
+export const post_and_status = (host, route, body, expectedStatus) => {
+    chai.request(host)
+    .post(route)
+    .send({...body})
+    .end((error, response) => {
+        expect(response).to.have.status(expectedStatus);
+    });
+}

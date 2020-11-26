@@ -6,9 +6,8 @@ import {
 } from './specs/user_get.spec.js'
 
 import {
-    create_user,
-    create_user_false
-} from './specs/users.spec.js';
+    tests_user_post
+} from './specs/user_post.spec.js';
 
 import { 
     patch_tests 
@@ -25,6 +24,10 @@ describe('Get - User', () => {
     user_models();
     get_user_by_id();
     get_user_false_id();
+});
+
+describe('Post - User', () => {
+    tests_user_post();
 });
 
 describe('Patch - User', () => {
